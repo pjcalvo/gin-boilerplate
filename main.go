@@ -7,10 +7,10 @@ import (
 	"os"
 	"runtime"
 
-	"github.com/Massad/gin-boilerplate/controllers"
-	"github.com/Massad/gin-boilerplate/db"
 	"github.com/gin-contrib/gzip"
 	"github.com/joho/godotenv"
+	"github.com/pjcalvo/gin-boilerplate/controllers"
+	"github.com/pjcalvo/gin-boilerplate/db"
 	uuid "github.com/twinj/uuid"
 
 	"github.com/gin-gonic/gin"

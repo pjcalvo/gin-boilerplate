@@ -1,4 +1,4 @@
-module github.com/Massad/gin-boilerplate
+module github.com/pjcalvo/gin-boilerplate
 
 go 1.14
 

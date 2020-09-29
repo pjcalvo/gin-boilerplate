@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"github.com/Massad/gin-boilerplate/forms"
-	"github.com/Massad/gin-boilerplate/models"
+	"github.com/pjcalvo/gin-boilerplate/forms"
+	"github.com/pjcalvo/gin-boilerplate/models"
 
 	"net/http"
 

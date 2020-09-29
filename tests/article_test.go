@@ -14,10 +14,10 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/Massad/gin-boilerplate/controllers"
-	"github.com/Massad/gin-boilerplate/db"
-	"github.com/Massad/gin-boilerplate/forms"
 	"github.com/joho/godotenv"
+	"github.com/pjcalvo/gin-boilerplate/controllers"
+	"github.com/pjcalvo/gin-boilerplate/db"
+	"github.com/pjcalvo/gin-boilerplate/forms"
 
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"

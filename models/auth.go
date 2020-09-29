@@ -8,8 +8,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Massad/gin-boilerplate/db"
 	"github.com/dgrijalva/jwt-go"
+	"github.com/pjcalvo/gin-boilerplate/db"
 	uuid "github.com/twinj/uuid"
 )
 
