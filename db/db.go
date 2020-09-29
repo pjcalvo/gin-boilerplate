@@ -2,10 +2,8 @@ package db
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
 	"os"
-	"strconv"
 
 	"github.com/go-gorp/gorp"
 	_redis "github.com/go-redis/redis/v7"
@@ -21,11 +19,8 @@ var db *gorp.DbMap
 
 //Init ...
 func Init() {
-
-	dbinfo := fmt.Sprintf("user=%s password=%s dbname=%s sslmode=disable", os.Getenv("DB_USER"), os.Getenv("DB_PASS"), os.Getenv("DB_NAME"))
-
 	var err error
-	db, err = ConnectDB(dbinfo)
+	db, err = ConnectDB()
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -33,8 +28,8 @@ func Init() {
 }
 
 //ConnectDB ...
-func ConnectDB(dataSourceName string) (*gorp.DbMap, error) {
-	db, err := sql.Open("postgres", dataSourceName)
+func ConnectDB() (*gorp.DbMap, error) {
+	db, err := sql.Open("postgres", os.Getenv("DATABASE_URL"))
 	if err != nil {
 		return nil, err
 	}
@@ -57,10 +52,14 @@ var RedisClient *_redis.Client
 //InitRedis ...
 func InitRedis(params ...string) {
 
-	var redisHost = os.Getenv("REDIS_HOST")
-	var redisPassword = os.Getenv("REDIS_PASSWORD")
+	opt, err := _redis.ParseURL(os.Getenv("REDIS_URL"))
+	if err != nil {
+		panic(err)
+	}
 
-	db, _ := strconv.Atoi(params[0])
+	var redisHost = opt.Addr
+	var redisPassword = opt.Password
+	var db = opt.DB
 
 	RedisClient = _redis.NewClient(&_redis.Options{
 		Addr:     redisHost,

@@ -10,16 +10,16 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 
 --
--- Name: golang_gin_db; Type: DATABASE; Schema: -; Owner: postgres
+-- Name: golang_gin_db; Type: DATABASE; Schema: -; Owner: hevpkvwqyqdcew
 --
-DROP DATABASE golang_gin_db;
+-- DROP DATABASE golang_gin_db;
 
-CREATE DATABASE golang_gin_db WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'en_US.UTF-8' LC_CTYPE = 'en_US.UTF-8';
+-- CREATE DATABASE golang_gin_db WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'en_US.UTF-8' LC_CTYPE = 'en_US.UTF-8';
 
 
-ALTER DATABASE golang_gin_db OWNER TO postgres;
+ALTER DATABASE d8f2ivit9nre81 OWNER TO hevpkvwqyqdcew;
 
-\connect golang_gin_db
+\connect d8f2ivit9nre81
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -55,7 +55,7 @@ END;
 $$;
 
 
-ALTER FUNCTION public.created_at_column() OWNER TO postgres;
+ALTER FUNCTION public.created_at_column() OWNER TO hevpkvwqyqdcew;
 
 --
 -- TOC entry 190 (class 1255 OID 36646)
@@ -74,7 +74,7 @@ END;
 $$;
 
 
-ALTER FUNCTION public.update_at_column() OWNER TO postgres;
+ALTER FUNCTION public.update_at_column() OWNER TO hevpkvwqyqdcew;
 
 
 SET search_path = public, pg_catalog;
@@ -97,7 +97,7 @@ CREATE TABLE article (
 );
 
 
-ALTER TABLE article OWNER TO postgres;
+ALTER TABLE article OWNER TO hevpkvwqyqdcew;
 
 --
 -- Name: article_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -111,7 +111,7 @@ CREATE SEQUENCE article_id_seq
     CACHE 1;
 
 
-ALTER TABLE article_id_seq OWNER TO postgres;
+ALTER TABLE article_id_seq OWNER TO hevpkvwqyqdcew;
 
 --
 -- Name: article_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -134,7 +134,7 @@ CREATE TABLE "user" (
 );
 
 
-ALTER TABLE "user" OWNER TO postgres;
+ALTER TABLE "user" OWNER TO hevpkvwqyqdcew;
 
 --
 -- Name: user_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -148,7 +148,7 @@ CREATE SEQUENCE user_id_seq
     CACHE 1;
 
 
-ALTER TABLE user_id_seq OWNER TO postgres;
+ALTER TABLE user_id_seq OWNER TO hevpkvwqyqdcew;
 
 --
 -- Name: user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -263,8 +263,8 @@ CREATE TRIGGER update_user_updated_at BEFORE UPDATE ON "user" FOR EACH ROW EXECU
 --
 
 REVOKE ALL ON SCHEMA public FROM PUBLIC;
-REVOKE ALL ON SCHEMA public FROM postgres;
-GRANT ALL ON SCHEMA public TO postgres;
+REVOKE ALL ON SCHEMA public FROM hevpkvwqyqdcew;
+GRANT ALL ON SCHEMA public TO hevpkvwqyqdcew;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
