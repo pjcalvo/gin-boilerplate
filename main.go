@@ -116,6 +116,10 @@ func main() {
 		})
 	})
 
+	r.GET("/ping", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{"response": "pong", "id": 3})
+	})
+
 	r.NoRoute(func(c *gin.Context) {
 		c.HTML(404, "404.html", gin.H{})
 	})
