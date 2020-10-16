@@ -57,6 +57,19 @@ func TokenAuthMiddleware() gin.HandlerFunc {
 	}
 }
 
+func basicAuth() gin.HandlerFunc {
+	// Get the Basic Authentication credentials
+	return func(c *gin.Context) {
+		user, password, hasAuth := c.Request.BasicAuth()
+		if hasAuth && user == "testuser" && password == "testpass" {
+			c.Next()
+		} else {
+			c.Writer.Header().Set("WWW-Authenticate", "Basic realm=Restricted")
+			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"message": "Please login first"})
+		}
+	}
+}
+
 func main() {
 
 	//Start the default gin server
@@ -103,6 +116,15 @@ func main() {
 		v1.GET("/article/:id", TokenAuthMiddleware(), article.One)
 		v1.PUT("/article/:id", TokenAuthMiddleware(), article.Update)
 		v1.DELETE("/article/:id", TokenAuthMiddleware(), article.Delete)
+
+		/*** START Test ***/
+		examen := new(controllers.ExamenController)
+
+		v1.GET("/examen/status", examen.GetStatus)
+		v1.GET("/examen/randomName", basicAuth(), examen.GetRandomName)
+		v1.POST("/examen/sameName", examen.PostSameName)
+		v1.PUT("/examen/updateName", examen.PutName)
+
 	}
 
 	r.LoadHTMLGlob("./public/html/*")
