@@ -142,6 +142,25 @@ func main() {
 		c.JSON(http.StatusOK, gin.H{"response": "pong", "id": 3})
 	})
 
+	r.POST("/file-upload", func(c *gin.Context) {
+		// single file
+		file, err := c.FormFile("file")
+		if err != nil {
+			log.Println((err))
+			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "Error processing file"})
+		}
+		log.Println(file.Filename)
+
+		// uuid := uuid.NewV4()
+
+		// err = c.SaveUploadedFile(file, "saved/"+uuid.String()+"-"+file.Filename)
+		// if err != nil {
+		// 	log.Println((err))
+		// 	c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "Error processing file"})
+		// }
+		c.String(http.StatusOK, fmt.Sprintf("'%s' uploaded!", file.Filename))
+	})
+
 	r.NoRoute(func(c *gin.Context) {
 		c.HTML(404, "404.html", gin.H{})
 	})
