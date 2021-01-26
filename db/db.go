@@ -59,12 +59,11 @@ func InitRedis(params ...string) {
 
 	var redisHost = opt.Addr
 	var redisPassword = opt.Password
-	var db = opt.DB
 
 	RedisClient = _redis.NewClient(&_redis.Options{
 		Addr:     redisHost,
 		Password: redisPassword,
-		DB:       db,
+		DB:       1,
 	})
 }
 

@@ -151,13 +151,13 @@ func main() {
 		}
 		log.Println(file.Filename)
 
-		// uuid := uuid.NewV4()
+		uuid := uuid.NewV4()
 
-		// err = c.SaveUploadedFile(file, "saved/"+uuid.String()+"-"+file.Filename)
-		// if err != nil {
-		// 	log.Println((err))
-		// 	c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "Error processing file"})
-		// }
+		err = c.SaveUploadedFile(file, "saved/"+uuid.String()+"-"+file.Filename)
+		if err != nil {
+			log.Println((err))
+			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "Error processing file"})
+		}
 		c.String(http.StatusOK, fmt.Sprintf("'%s' uploaded!", file.Filename))
 	})
 

@@ -27,7 +27,7 @@ var authModel = new(AuthModel)
 //Login ...
 func (m UserModel) Login(form forms.LoginForm) (user User, token Token, err error) {
 
-	err = db.GetDB().SelectOne(&user, "SELECT id, email, password, name, updated_at, created_at FROM public.user WHERE email=LOWER($1) LIMIT 1", form.Email)
+	err = db.GetDB().SelectOne(&user, "SELECT id, email, password, name, updated_at, created_at FROM public.user WHERE LOWER(email)=LOWER($1) LIMIT 1", form.Email)
 
 	if err != nil {
 		return user, token, err
