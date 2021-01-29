@@ -33,7 +33,7 @@ func (ctrl UserController) Login(c *gin.Context) {
 	if err == nil {
 		c.JSON(http.StatusOK, gin.H{"message": "User signed in", "user": user, "token": token})
 	} else {
-		c.JSON(http.StatusNotAcceptable, gin.H{"message": "Invalid login details", "error": err.Error()})
+		c.JSON(http.StatusNotFound, gin.H{"message": "Invalid login details", "error": err.Error()})
 	}
 
 }
