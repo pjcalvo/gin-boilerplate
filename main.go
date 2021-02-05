@@ -101,7 +101,7 @@ func main() {
 		// API de comuncacion
 
 		v1.POST("/user/login", user.Login)
-		v1.POST("/user/register", basicAuth(), user.Register)
+		v1.POST("/user/register", user.Register)
 		v1.GET("/user/logout", user.Logout)
 
 		/*** START AUTH ***/
