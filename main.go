@@ -112,6 +112,8 @@ func main() {
 
 		/*** START Article ***/
 		article := new(controllers.ArticleController)
+		post := new(controllers.PostController)
+		comment := new(controllers.CommentController)
 
 		v1.POST("/article", TokenAuthMiddleware(), article.Create)
 		v1.GET("/articles", TokenAuthMiddleware(), article.All)
@@ -119,13 +121,19 @@ func main() {
 		v1.PUT("/article/:id", TokenAuthMiddleware(), article.Update)
 		v1.DELETE("/article/:id", TokenAuthMiddleware(), article.Delete)
 
-		/*** START Test ***/
-		examen := new(controllers.ExamenController)
+		// examen
 
-		v1.GET("/examen/status", examen.GetStatus)
-		v1.GET("/examen/randomName", basicAuth(), examen.GetRandomName)
-		v1.POST("/examen/sameName", examen.PostSameName)
-		v1.PUT("/examen/updateName", examen.PutName)
+		v1.POST("/post", TokenAuthMiddleware(), post.Create)
+		v1.GET("/posts", TokenAuthMiddleware(), post.All)
+		v1.GET("/post/:id", TokenAuthMiddleware(), post.One)
+		v1.PUT("/post/:id", TokenAuthMiddleware(), post.Update)
+		v1.DELETE("/post/:id", TokenAuthMiddleware(), post.Delete)
+
+		v1.POST("/comment/:postid", basicAuth(), comment.Create)
+		v1.GET("/comments/:postid", basicAuth(), comment.All)
+		v1.GET("/comment/:postid/:id", basicAuth(), comment.One)
+		v1.PUT("/comment/:postid/:id", basicAuth(), comment.Update)
+		v1.DELETE("/comment/:postid/:id", basicAuth(), comment.Delete)
 
 	}
 
