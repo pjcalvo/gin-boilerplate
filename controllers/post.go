@@ -20,21 +20,21 @@ var postModel = new(models.PostModel)
 func (ctrl PostController) Create(c *gin.Context) {
 	if userID := getUserID(c); userID != 0 {
 
-		var articleForm forms.ArticleForm
+		var postForm forms.PostForm
 
-		if c.ShouldBindJSON(&articleForm) != nil {
+		if c.ShouldBindJSON(&postForm) != nil {
 			c.AbortWithStatusJSON(http.StatusNotAcceptable, gin.H{"message": "Invalid form"})
 			return
 		}
 
-		articleID, err := articleModel.Create(userID, articleForm)
+		postID, err := postModel.Create(userID, postForm)
 
-		if articleID == 0 && err != nil {
-			c.AbortWithStatusJSON(http.StatusNotAcceptable, gin.H{"message": "Article could not be created", "error": err.Error()})
+		if postID == 0 && err != nil {
+			c.AbortWithStatusJSON(http.StatusNotAcceptable, gin.H{"message": "Post could not be created", "error": err.Error()})
 			return
 		}
 
-		c.JSON(http.StatusOK, gin.H{"message": "Article created", "id": articleID})
+		c.JSON(http.StatusOK, gin.H{"message": "Post created", "id": postID})
 	}
 }
 
@@ -42,9 +42,9 @@ func (ctrl PostController) Create(c *gin.Context) {
 func (ctrl PostController) All(c *gin.Context) {
 	if userID := getUserID(c); userID != 0 {
 
-		results, err := articleModel.All(userID)
+		results, err := postModel.All(userID)
 		if err != nil {
-			c.AbortWithStatusJSON(http.StatusNotAcceptable, gin.H{"Message": "Could not get articles", "error": err.Error()})
+			c.AbortWithStatusJSON(http.StatusNotAcceptable, gin.H{"Message": "Could not get posts", "error": err.Error()})
 			return
 		}
 
@@ -59,9 +59,9 @@ func (ctrl PostController) One(c *gin.Context) {
 		id := c.Param("id")
 		if id, err := strconv.ParseInt(id, 10, 64); err == nil {
 
-			data, err := articleModel.One(userID, id)
+			data, err := postModel.One(userID, id)
 			if err != nil {
-				c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"Message": "Article not found", "error": err.Error()})
+				c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"Message": "Post not found", "error": err.Error()})
 				return
 			}
 
@@ -79,20 +79,20 @@ func (ctrl PostController) Update(c *gin.Context) {
 		id := c.Param("id")
 		if id, err := strconv.ParseInt(id, 10, 64); err == nil {
 
-			var articleForm forms.ArticleForm
+			var postForm forms.PostForm
 
-			if c.ShouldBindJSON(&articleForm) != nil {
+			if c.ShouldBindJSON(&postForm) != nil {
 				c.AbortWithStatusJSON(http.StatusNotAcceptable, gin.H{"message": "Invalid form"})
 				return
 			}
 
-			err := articleModel.Update(userID, id, articleForm)
+			err := postModel.Update(userID, id, postForm)
 			if err != nil {
-				c.AbortWithStatusJSON(http.StatusNotAcceptable, gin.H{"message": "Article could not be updated", "error": err.Error()})
+				c.AbortWithStatusJSON(http.StatusNotAcceptable, gin.H{"message": "Post could not be updated", "error": err.Error()})
 				return
 			}
 
-			c.JSON(http.StatusOK, gin.H{"message": "Article updated"})
+			c.JSON(http.StatusOK, gin.H{"message": "Post updated"})
 		} else {
 			c.JSON(http.StatusNotFound, gin.H{"message": "Invalid parameter", "error": err.Error()})
 		}
@@ -106,13 +106,13 @@ func (ctrl PostController) Delete(c *gin.Context) {
 		id := c.Param("id")
 		if id, err := strconv.ParseInt(id, 10, 64); err == nil {
 
-			err := articleModel.Delete(userID, id)
+			err := postModel.Delete(userID, id)
 			if err != nil {
-				c.AbortWithStatusJSON(http.StatusNotAcceptable, gin.H{"message": "Article could not be deleted", "error": err.Error()})
+				c.AbortWithStatusJSON(http.StatusNotAcceptable, gin.H{"message": "Post could not be deleted", "error": err.Error()})
 				return
 			}
 
-			c.JSON(http.StatusOK, gin.H{"message": "Article deleted"})
+			c.JSON(http.StatusOK, gin.H{"message": "Post deleted"})
 		} else {
 			c.JSON(http.StatusNotFound, gin.H{"message": "Invalid parameter"})
 		}
