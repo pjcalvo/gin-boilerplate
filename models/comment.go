@@ -53,7 +53,7 @@ func (m CommentModel) Update(postID int64, id int64, form forms.CommentForm) (er
 
 //Delete ...
 func (m CommentModel) Delete(postID, id int64) (err error) {
-	_, err = m.One(id, postID)
+	_, err = m.One(postID, id)
 
 	if err != nil {
 		return errors.New("Comment not found")
